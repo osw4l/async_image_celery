@@ -1,0 +1,55 @@
+version: "2"
+services:
+  nginx:
+    extends:
+      file: base.yml
+      service: nginx
+    links:
+      - app
+
+  postgres:
+    extends:
+      file: base.yml
+      service: postgres
+
+  redis:
+    extends:
+      file: base.yml
+      service: redis
+
+  app:
+    restart: always
+    extends:
+      file: base.yml
+      service: app
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+    command: /usr/local/bin/gunicorn uploader.wsgi:application -w 2 -b :8000 --reload
+    env_file: .env
+
+  worker:
+    extends:
+      file: base.yml
+      service: worker
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+
+  beat:
+    extends:
+      file: base.yml
+      service: beat
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+

@@ -1,0 +1,25 @@
+server {
+  client_max_body_size 50M;
+  listen 80;
+  server_name _;
+
+  location /static {
+    alias /app/static/;
+  }
+
+  location /media {
+    alias /app/media/;
+  }
+
+  location / {
+
+    # app es el host que apunta el link de docker
+    # donde vive gunicorn
+    proxy_pass http://app:8000;
+
+    # Traduce app a 127.0.0.1
+    # Para evitar problema con los dominios en el framework
+    proxy_set_header Host $host;
+
+  }
+}

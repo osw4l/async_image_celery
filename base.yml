@@ -1,0 +1,39 @@
+version: "2"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./app:/app
+
+  postgres:
+    image: postgres:10.1
+    env_file: .env
+
+  redis:
+    image: redis:4.0
+
+  app:
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: sh ./scripts/app.sh
+
+  worker:
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: su -m app -c "celery -A $PROJECT_NAME worker -l info"
+
+  beat:
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: su -m app -c "celery -A $PROJECT_NAME beat -l info --pidfile=/tmp/celery.pid"

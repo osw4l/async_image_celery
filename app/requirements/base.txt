@@ -1,0 +1,13 @@
+Django==2.0.1
+django-cors-headers==2.1.0
+djangorestframework==3.7.7
+django-filter==1.1.0
+psycopg2==2.7.3.2
+gunicorn==19.7.1
+Pillow==5.0.0
+celery==4.1
+django-celery-beat==1.1.1
+django-celery-results==1.0.1
+redis==2.10.6
+django-rest-auth==0.9.1
+cloudinary==1.11.0

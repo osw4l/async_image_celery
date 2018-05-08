@@ -1,0 +1,79 @@
+version: "2"
+services:
+  nginx:
+    extends:
+      file: base.yml
+      service: nginx
+    links:
+      - app
+    volumes:
+      - ./app:/app
+      - ./media:/app/media
+    ports:
+      - "3002:80"
+
+  app:
+    extends:
+      file: base.yml
+      service: app
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
+    volumes:
+      - ./app:/app
+      - ./media:/app/media
+    depends_on:
+      - postgres
+      - redis
+
+  worker:
+    extends:
+      file: base.yml
+      service: worker
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
+    volumes:
+      - ./app:/app
+      - ./media:/app/media
+    depends_on:
+      - app
+
+  beat:
+    extends:
+      file: base.yml
+      service: beat
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    volumes:
+      - ./app:/app
+      - ./media:/app/media
+    depends_on:
+      - worker
+
+  postgres:
+    extends:
+      file: base.yml
+      service: postgres
+    volumes:
+      - ./db-data:/var/lib/postgresql/data/
+
+  redis:
+    extends:
+      file: base.yml
+      service: redis
+    volumes:
+      - ./redis-data:/data
