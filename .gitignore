@@ -1,0 +1,8 @@
+db.sqlite3
+*.py[cod]
+app/static
+app/client
+app/media
+.env
+env
+__pycache__

@@ -36,7 +36,7 @@ class Ticket(TimeStampModel):
         )
 
     def images_count(self):
-        return ImageTicket.objects.filter(ticket=self)
+        return ImageTicket.objects.filter(ticket=self).count()
 
 
 class ImageTicket(TimeStampModel):
@@ -55,7 +55,7 @@ class ImageTicket(TimeStampModel):
         default=constants.INITIAL_STATUS,
         choices=constants.CHOICES_STATUS
     )
-    already_upload = models.BooleanField(
+    upload = models.BooleanField(
         default=False
     )
 
@@ -70,10 +70,14 @@ class ImageTicket(TimeStampModel):
         self.status = status
         self.save(update_fields=['status'])
 
-    def mark_as_upload(self):
-        self.already_upload = True
+    def mark_as_uploaded(self, url):
+        self.upload = True
+        self.image = url
         self.set_status(constants.UPLOAD_STATUS)
-        self.save(update_fields=['already_upload'])
+        self.save(update_fields=[
+            'upload',
+            'image'
+        ])
 
     def get_url(self):
         return self.image.url if self.image else None

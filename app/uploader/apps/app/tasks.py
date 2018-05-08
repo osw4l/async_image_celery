@@ -20,9 +20,7 @@ def upload_image(path, ticket):
         image_ticket.set_status(constants.UPLOADING_STATUS)
         image = uploader.upload(path)
         if image:
-            image_ticket.mark_as_upload()
-            image_ticket.image = image['url']
-            image_ticket.save()
+            image_ticket.mark_as_uploaded(image['url'])
     except:
         image_ticket.set_status(constants.FAIL_STATUS)
     os.remove(path)
