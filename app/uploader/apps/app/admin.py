@@ -19,3 +19,8 @@ class ImageTicketAdmin(admin.ModelAdmin):
                     'get_url', 'status', 'upload',
                     'time_created', 'last_update']
 
+
+@admin.register(models.Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+	list_display = ['id', 'user', 'priority']
+

@@ -12,6 +12,6 @@ tail -n 0 -f /home/app/logs/*.log &
 python manage.py collectstatic --clear --noinput > /dev/null 2>&1
 python manage.py collectstatic --noinput > /dev/null 2>&1
 
-exec gunicorn $PROJECT_NAME.wsgi -b :8000 \
+exec gunicorn $PROJECT_NAME.wsgi -b :8005 \
 	--access-logfile /home/app/logs/gunicorn-access.log \
 	--error-logfile /home/app/logs/gunicorn.log

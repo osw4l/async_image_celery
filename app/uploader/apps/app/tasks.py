@@ -5,7 +5,7 @@ from uploader.celery_conf import app
 from cloudinary import uploader
 from . import constants
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('OSW4l')
 
 
 @shared_task

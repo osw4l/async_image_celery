@@ -46,6 +46,10 @@ LOGGING = {
         'uploader': {
             'level': 'DEBUG',
             'handlers': ['console'],
+        },
+        'OSW4L': {
+            'level': 'WARNING',
+            'handlers': ['console']
         }
     },
 }

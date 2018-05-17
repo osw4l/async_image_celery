@@ -3,7 +3,7 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - "8000:80"
+      - "8005:80"
     volumes:
       - ./app:/app
 

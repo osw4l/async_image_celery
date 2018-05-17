@@ -1,0 +1,56 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+		<link rel="stylesheet" href="{% static 'styles.css' %}">
+		<style>
+		@page {
+			size: 211.666mm 158.7mm;
+		}
+		
+
+		.image {
+			width: 60% !important;
+		}
+
+		.text-blue {
+			color: blue;
+		}
+		</style>
+</head>
+<body>
+	<form method="post">{% csrf_token %}
+		<button>
+			ok
+		</button>
+	</form>
+		<div class="container" align="center">
+			<h1 class="text-center">
+				Informe de imagenes del
+				<span class="text-blue">ticket #{{ object.id }}</span>
+			</h1>
+			<br>
+			<div class="row">
+			{% for image in object.get_images  %}
+			
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<img class="image" src="{{ image.image }}" alt="">
+						</div>
+						<div class="col-md-12">
+							<p>status : <strong>{{ image.status }}</strong></p>
+							<p>created : <strong>{{ image.created }}</strong></p>
+							<p>ticket : <strong>{{ image.ticket }}</strong></p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+
+</body>
+</html>

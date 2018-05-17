@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>favs</title>
+	{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+		<link rel="stylesheet" href="{% static 'styles.css' %}">
+	<style>
+		.pull-bottom {
+			margin-top: 20px !important;
+		}
+	</style>
+
+</head>
+<body>
+
+	<div class="container pull-bottom">
+		<div class="row">
+			<div class="col-md-2">
+				<a href="{% url 'admin:index' %}" class="btn btn-success">
+					Go to api manager
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container pull-bottom">
+		<div class="row">
+			<div class="col-md-6">
+				<table class="table table-bordered table-responsive table-hover">
+					<thead>
+						<tr>
+							<th class="text-center">
+								id
+							</th>
+							<th class="text-center">
+								images
+							</th>
+							<th class="text-center">
+								created
+							</th>
+							<th class="text-center">
+								actions
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ticket in object_list  %}
+							<tr>
+								<td class="text-center">
+									{{ ticket.id }}
+								</td>
+								<td class="text-center">
+									{{ ticket.images_count }}
+								</td>
+								<td class="text-center">
+									{{ ticket.created }}
+								</td>
+								<td class="text-center">
+									<a href="{% url 'app:ticket' ticket.id %}" class="btn btn-info btn-xs">
+										see this ticket
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+</html>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from cloudinary.models import CloudinaryField
 from . import constants
 # Create your models here.
@@ -35,8 +36,46 @@ class Ticket(TimeStampModel):
             self.user
         )
 
+    def get_images(self):
+        return  ImageTicket.objects.filter(
+            ticket=self
+        )
+
     def images_count(self):
-        return ImageTicket.objects.filter(ticket=self).count()
+        return self.get_images().count()
+
+    def get_absolute_url(self):
+        return reverse_lazy(
+            'app:ticket', 
+            kwargs={
+            'pk': self.pk
+        })
+
+
+class Favorite(TimeStampModel):
+    user = models.OneToOneField(
+        'auth.User',
+        unique=True,
+        on_delete=models.CASCADE
+    )
+    priority = models.PositiveIntegerField(
+        default=0,
+        unique=True,
+        editable=False
+    )
+
+    class Meta:
+        verbose_name = 'Favorite'
+        verbose_name_plural = 'Favorites'
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.priority = self.count_records() + 1
+        super().save(*args, **kwargs)
+
+    @staticmethod
+    def count_records():
+        return Favorite.objects.all().count()
 
 
 class ImageTicket(TimeStampModel):

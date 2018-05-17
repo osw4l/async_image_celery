@@ -132,6 +132,10 @@ REST_FRAMEWORK = {
     )
 }
 
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
+
 CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
