@@ -10,11 +10,11 @@ DEBUG_TOOLBAR_CONFIG = {
 
 INSTALLED_APPS = [
                      'django_extensions',
-                     'debug_toolbar',
+                    
                  ] + INSTALLED_APPS
 
 MIDDLEWARE = [
-                 'debug_toolbar.middleware.DebugToolbarMiddleware',
+                 
              ] + MIDDLEWARE
 
 # Static files (CSS, JavaScript, Images)
