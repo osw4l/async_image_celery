@@ -2,72 +2,54 @@
 
 # MONTAR ENTORNO POR PRIMERA VEZ
 
-# CONFIGURAR VARIABLES DE ENTORNO
-cp env.template .env
+	# CONFIGURAR VARIABLES DE ENTORNO
+	cp env.template .env
 
+	# EJEMPLO DE .env
 
-# CREAR IMAGENES PARA UPLOADER
-nano .env # para configurar las variables
-docker-compose build
+	LANG=C.UTF-8
+	LC_ALL=C.UTF-8
+	SECRET_KEY=#DJANGO SECRET_KEY
+	DEBUG=false
+	HTTPS=on
+	POSTGRES_DB=#NOMBRE QUE SE QUIERE DAR A LA BASE DE DATOS
+	POSTGRES_USER=#USUARIO
+	POSTGRES_PASSWORD=#PASSWORD
+	SUBDIR_PATH=mahou_v2
+	BIGTINCAN_CLIENT_ID=#CLIENT ID
+	BIGTINCAN_CLIENT_SECRET=#CLIENT SECRET
+	BIGTINCAN_ADMIN_USERNAME=#BIGTINCAN EMAIL ADMIN
+	BIGTINCAN_ADMIN_PASS=#BIGTINCAN PASS ADMIN
+	BIGTINCAN_API_DOMAIN=#DOMAIN
+	BIGTINCAN_API_LIMIT=#ITEM POR PAGINAS
 
-# INICIAR SERVIDOR DE UPLOADEr
+	# CREAR IMAGENES PARA NAUTY360
+	docker-compose -f prod.yml build
 
-docker-compose up -d
+# INICIAR SERVIDOR DE NAUTY360
 
-# MIGRACIONES
+docker-compose -f prod.yml up -d
 
-sudo chmod u+x migrate_db.sh
+# CREAR EL MODELO DE DATOS EN LA BASE DE DATOS
 
-./migrate_db.sh
-
+docker-compose -f prod.yml exec app python manage.py makemigrations
+docker-compose -f prod.yml exec app python manage.py migrate
 
 # REINICIAR LOS SERVICIOS PARA QUE CARGUE CORRECTAMENTE CELERY
 
-docker-compose down
-docker-compose up -d
+docker-compose -f prod.yml restart beat
 
 # COMPROBAR EL ESTADO DEL BACKEND
 
+docker-compose -f prod.yml ps
+
+# CREAR UN USUARIO ADMINISTRADOR EN NUESTRO BACKEND
+
+docker-compose -f prod.yml exec app python manage.py createsuperuser
+
+
+# show logs
+docker-compose logs -f app
+
+# estado de los procesos
 docker-compose ps
-
-# CREAR UN USUARIO
-
-docker-compose exec app python manage.py createsuperuser
-
-# OTRA FORMA
-
-sudo chmod u+x create_user.sh
-./create_user.sh
-
-# LIBRERIA PARA LA AUTENTICACION
-
-http://django-rest-auth.readthedocs.io/en/latest/
-
-# CLOUD STORAGE PARA IMAGENES
-
-https://cloudinary.com/documentation/django_integration
-
-# URL PARA EL ADMIN DE DJANGO
-http://localhost:8000/api-manager/
-
-# END POINT PARA LOGIN
-http://localhost:8000/rest-auth/login/
-# recibe
-{
-	"username":"user",
-	"password":"password",
-	"email":""
-}
-
-# RETORNA UN KEY QUE SE DEBE MANDAR DE LA SIGUIENTE MANERA
--> Authorization   Token 79c6babdcdafa50b994c39804676131c068d362d
-
-# PARA SUBIR UNA O MUCHAS IMAGENES HASTA 50MB, CONFIGURADO EN NGINX VIA POST
-http://localhost:8000/api/viewsets/images/ # <- recibe datos en form data
-
-# PARA VER LOS TICKETS HAY DOS ENPOINTS todas responden a get
-http://localhost:8000/api/tickets/ 
-http://localhost:8000/api/viewsets/images/
-http://localhost:8000/api/viewsets/tickets-images
-
-

@@ -14,6 +14,11 @@
 			padding: 0;
 		}
 
+		html, body, div{
+			padding: 0;
+			margin: 0;
+		}
+
 		.image {
 			width: 60% !important;
 		}
@@ -116,45 +121,55 @@
 		}
 
 		.container-page {
-			margin: 0 !important;
-			padding: 0 !important;
 			width: 800px !important;
 			height: 600px !important;
 		}
 
-	</style>
-</head>
-<body>
+		</style>
+	</head>
+	<body>
+		<div class="container-page bg-pink">
+			<h1 class="text-center">
+				Informe de imagenes del
+				<span class="text-blue">ticket #{{ object.id }}</span>
+			</h1>
+		</div>
 
-	<div class="container-fluid container-page bg-pink" id="portada">
-		<h1 class="text-center">
-			Informe de imagenes del
-			<span class="text-blue">ticket #{{ object.id }}</span>
-		</h1>
-	</div>
-
-	
-
-	<div class="container" align="center">
-		<br>
-		<div class="row">
-			{% for image in object.get_images  %}
-			
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-12">
-						<img class="image" src="{{ image.image }}" alt="">
-					</div>
-					<div class="col-md-12">
-						<p>status : <strong>{{ image.status }}</strong></p>
-						<p>created : <strong>{{ image.created }}</strong></p>
-						<p>ticket : <strong>{{ image.ticket }}</strong></p>
+		{% for ticket in object_list %}
+			<div class="container-page" align="center">
+				<h1 class="text-center">
+					{{ ticket.data }}
+				</h1>
+			</div>
+			<div class="container-page" align="center">
+			{% for image in ticket.get_images  %}
+				
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<img class="image" src="{{ image.image }}" alt="">
+						</div>
+						<div class="col-md-12">
+							<p>status : <strong>{{ image.status }}</strong></p>
+							<p>created : <strong>{{ image.created }}</strong></p>
+							<p>ticket : <strong>{{ image.ticket }}</strong></p>
+						</div>
 					</div>
 				</div>
-			</div>
-			{% endfor %}
-		</div>
-	</div>
 
-</body>
-</html>
+					{% if forloop.counter|divisibleby:2 %}
+					</div>
+					<div class="container-page" align="center">
+					{% endif %}
+
+				{% endfor %}
+
+			<div class="row">
+				
+			</div>
+		</div>
+		{% endfor %}
+
+
+	</body>
+	</html>

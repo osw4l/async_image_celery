@@ -36,6 +36,9 @@ class Ticket(TimeStampModel):
             self.user
         )
 
+    def data(self):
+        return self.__str__()
+
     def get_images(self):
         return  ImageTicket.objects.filter(
             ticket=self

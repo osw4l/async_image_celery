@@ -19,7 +19,7 @@ class TicketDetailView(DetailView):
 
 	def post(self, request, *args, **kwargs):
 		html_string = render_to_string('file.html', {
-			'object': self.get_object()
+			'object_list': Ticket.objects.all()
 		})
 
 		html = HTML(string=html_string)
