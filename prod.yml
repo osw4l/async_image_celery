@@ -49,6 +49,9 @@ services:
     build:
       args:
         - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
     depends_on:
       - worker
 

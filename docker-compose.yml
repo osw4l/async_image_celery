@@ -30,7 +30,6 @@ services:
     links:
       - redis
       - postgres
-    command: /usr/local/bin/gunicorn uploader.wsgi:application -w 2 -b :8005 --reload
     env_file: .env
 
   worker:
