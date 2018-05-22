@@ -8,7 +8,6 @@ router.register(r'tickets-images', viewsets.TicketViewSet)
 
 urlpatterns = [
     url(r'^viewsets/', include(router.urls)),
-
     url(r'^tickets/', views.TicketListApiView.as_view()),
 
 ]

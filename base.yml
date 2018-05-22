@@ -3,7 +3,7 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - "8005:80"
+      - "8000:80"
     volumes:
       - ./app:/app
 
@@ -28,7 +28,7 @@ services:
       - ./app:/app
     env_file: .env
     restart: on-failure
-    command: su -m app -c "celery -A $PROJECT_NAME worker -l info"
+    command: celery -A $PROJECT_NAME worker -l info
 
   beat:
     build: ./app
@@ -36,4 +36,4 @@ services:
       - ./app:/app
     env_file: .env
     restart: on-failure
-    command: su -m app -c "celery -A $PROJECT_NAME beat -l info --pidfile=/tmp/celery.pid"
+    command: celery -A $PROJECT_NAME beat -l info --pidfile=/tmp/celery.pid

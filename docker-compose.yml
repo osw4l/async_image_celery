@@ -22,6 +22,8 @@ services:
     extends:
       file: base.yml
       service: app
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.dev
     build:
       args:
         - DJANGO_ENV=dev
@@ -35,6 +37,8 @@ services:
     extends:
       file: base.yml
       service: worker
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.dev
     build:
       args:
         - DJANGO_ENV=dev
@@ -46,10 +50,11 @@ services:
     extends:
       file: base.yml
       service: beat
+    environment:
+      - DJANGO_SETTINGS_MODULE=uploader.settings.dev
     build:
       args:
         - DJANGO_ENV=dev
     links:
       - redis
       - postgres
-
