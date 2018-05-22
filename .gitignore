@@ -6,3 +6,4 @@ app/media
 .env
 env
 __pycache__
+db-data redis-data

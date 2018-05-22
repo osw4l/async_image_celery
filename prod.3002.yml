@@ -58,6 +58,9 @@ services:
     build:
       args:
         - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
     volumes:
       - ./app:/app
       - ./media:/app/media
