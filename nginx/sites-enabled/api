@@ -1,7 +1,7 @@
 server {
   client_max_body_size 50M;
   listen 80;
-  server_name _;
+  server_name localhost;
 
   location /static {
     alias /app/static/;

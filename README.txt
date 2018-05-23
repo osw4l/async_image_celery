@@ -34,6 +34,7 @@ docker-compose -f prod.yml up -d
 
 docker-compose -f prod.yml exec app python manage.py makemigrations
 docker-compose -f prod.yml exec app python manage.py migrate
+docker-compose -f prod.yml exec app python manage.py collectstatic
 
 # REINICIAR LOS SERVICIOS PARA QUE CARGUE CORRECTAMENTE CELERY
 
