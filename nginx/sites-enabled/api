@@ -15,7 +15,7 @@ server {
 
     # app es el host que apunta el link de docker
     # donde vive gunicorn
-    proxy_pass http://app:8005;
+    proxy_pass http://app:8000;
 
     # Traduce app a 127.0.0.1
     # Para evitar problema con los dominios en el framework
