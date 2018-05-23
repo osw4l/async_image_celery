@@ -1,7 +1,6 @@
 import logging, os
 from celery import shared_task, task
 from uploader.apps.app.models import ImageTicket
-from uploader.celery_conf import app
 from cloudinary import uploader
 from . import constants
 
@@ -13,6 +12,7 @@ def add(x, y):
     return x + y
 
 
+"""
 @app.task
 def upload_image(path, ticket):
     image_ticket = ImageTicket.objects.create(ticket_id=ticket)
@@ -24,3 +24,4 @@ def upload_image(path, ticket):
     except:
         image_ticket.set_status(constants.FAIL_STATUS)
     os.remove(path)
+"""
