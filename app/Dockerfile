@@ -25,7 +25,7 @@ RUN cd /tmp && \
 WORKDIR /app/
 
 # Instalar dependencias de python
-RUN sleep 30 && pip3 install -r requirements/$DJANGO_ENV.txt
+RUN pip3 install -r requirements/$DJANGO_ENV.txt
 
 # Crear usuario sin privilegios
 RUN adduser --disabled-password --gecos '' app
