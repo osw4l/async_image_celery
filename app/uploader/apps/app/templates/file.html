@@ -1,175 +1,305 @@
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<title>Document</title>
-		{% load staticfiles %}
-		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-		<link rel="stylesheet" href="{% static 'styles.css' %}">
-		<style>
-		@page {
-			size: 211.666mm 158.7mm;
-			margin: 0;
-			padding: 0;
-		}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Document</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        @page {
+            size: 211.666mm 158.7mm;
+            margin: 0 !important;;
+            padding: 0 !important;;
+        }
 
-		html, body, div{
-			padding: 0;
-			margin: 0;
-		}
+        html, body, div {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-		.image {
-			width: 60% !important;
-		}
+        body:before {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-		#portada {
-			margin-bottom: 60%
-		}
+        body:after {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-		.text-blue {
-			color: blue !important;
-		}
+        .image {
+            width: 60% !important;
+        }
 
-		.container {
-			padding-right: 15px;
-			padding-left: 15px;
-			margin-right: auto;
-			margin-left: auto;
-		}
-		@media (min-width: 768px) {
-			.container {
-				width: 750px;
-			}
-		}
-		@media (min-width: 992px) {
-			.container {
-				width: 970px;
-			}
-		}
-		@media (min-width: 1200px) {
-			.container {
-				width: 1170px;
-			}
-		}
-		.container-fluid {
-			padding-right: 15px;
-			padding-left: 15px;
-			margin-right: auto;
-			margin-left: auto;
-		}
-		.row {
-			margin-right: -15px;
-			margin-left: -15px;
-		}
+        #portada {
+            margin-bottom: 60%
+        }
 
-		.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
-			float: left;
-		}
-		.col-md-12 {
-			width: 100%;
-		}
-		.col-md-11 {
-			width: 91.66666667%;
-		}
-		.col-md-10 {
-			width: 83.33333333%;
-		}
-		.col-md-9 {
-			width: 75%;
-		}
-		.col-md-8 {
-			width: 66.66666667%;
-		}
-		.col-md-7 {
-			width: 58.33333333%;
-		}
-		.col-md-6 {
-			width: 50%;
-		}
-		.col-md-5 {
-			width: 41.66666667%;
-		}
-		.col-md-4 {
-			width: 33.33333333%;
-		}
-		.col-md-3 {
-			width: 25%;
-		}
-		.col-md-2 {
-			width: 16.66666667%;
-		}
-		.col-md-1 {
-			width: 8.33333333%;
-		}
+        .text-blue {
+            color: blue !important;
+        }
 
-		.text-white {
-			color: white;
-			font-weight: 800 !important;
-		}
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
 
-		.text-black {
-			color: black;
-		}
+        @media (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
 
-		.text-center {
-			text-align: center !important;
-		}
+        @media (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
 
-		.bg-pink {
-			background: #e70041;
-		}
+        @media (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
 
-		.container-page {
-			width: 800px !important;
-			height: 600px !important;
-		}
+        .container-fluid {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
 
-		</style>
-	</head>
-	<body>
-		<div class="container-page bg-pink">
-			<h1 class="text-center">
-				Informe de imagenes del
-				<span class="text-blue">ticket #{{ object.id }}</span>
-			</h1>
-		</div>
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
 
-		{% for ticket in object_list %}
-			<div class="container-page" align="center">
-				<h1 class="text-center">
-					{{ ticket.data }}
-				</h1>
-			</div>
-			<div class="container-page" align="center">
-			{% for image in ticket.get_images  %}
-				
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-12">
-							<img class="image" src="{{ image.image }}" alt="">
-						</div>
-						<div class="col-md-12">
-							<p>status : <strong>{{ image.status }}</strong></p>
-							<p>created : <strong>{{ image.created }}</strong></p>
-							<p>ticket : <strong>{{ image.ticket }}</strong></p>
-						</div>
-					</div>
-				</div>
+        .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+            float: left;
+        }
 
-					{% if forloop.counter|divisibleby:2 %}
-					</div>
-					<div class="container-page" align="center">
-					{% endif %}
+        .col-md-12 {
+            width: 100%;
+        }
 
-				{% endfor %}
+        .col-md-11 {
+            width: 91.66666667%;
+        }
 
-			<div class="row">
-				
-			</div>
-		</div>
-		{% endfor %}
+        .col-md-10 {
+            width: 83.33333333%;
+        }
+
+        .col-md-9 {
+            width: 75%;
+        }
+
+        .col-md-8 {
+            width: 66.66666667%;
+        }
+
+        .col-md-7 {
+            width: 58.33333333%;
+        }
+
+        .col-md-6 {
+            width: 50%;
+        }
+
+        .col-md-5 {
+            width: 41.66666667%;
+        }
+
+        .col-md-4 {
+            width: 33.33333333%;
+        }
+
+        .col-md-3 {
+            width: 25%;
+        }
+
+        .col-md-2 {
+            width: 16.66666667%;
+        }
+
+        .col-md-1 {
+            width: 8.33333333%;
+        }
+
+        .text-white {
+            color: white;
+            font-weight: 800 !important;
+        }
+
+        .text-black {
+            color: black;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .bg-pink {
+            background: #e70041;
+        }
+
+        .container-page {
+            width: 800px !important;
+            height: 600px !important;
+
+        }
+
+        #page1 {
+            background-color: white;
+        }
+
+        #page1:before {
+            height: 50%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #e11b22;
+            content: "";
+            z-index: 0;
+        }
 
 
-	</body>
-	</html>
+
+        .lc-block.toggled {
+            z-index: 7;
+        }
+
+        .lc-block {
+            vertical-align: middle;
+            position: relative;
+        }
+
+        .logo{
+            width: 15%;
+            position: absolute;
+            top: 8%;
+            left: 3%;
+        }
+
+        .logother{
+            width: 15%;
+            position: absolute;
+            top: -15%;
+            left: 3%;
+        }
+
+        .botellas{
+            width: 55%;
+            margin-left: 24%;
+            margin-top: 10%;
+        }
+
+        .texto-ticket{
+            margin-top: 20%;
+        }
+
+        .margin-top{
+            margin-top: 2%;
+        }
+        .position{
+            position: absolute;
+            top: 90%;
+            left: 5%;
+        }
+
+        #thank{
+            background-color: #e11b22;
+            margin-top: 3%;
+        }
+
+        .texto-thank{
+            margin-top: 0%;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container-page " id="page1">
+    <div class="lc-block toggled">
+        <div class="middle-container">
+            <h1 class="text-center ">
+                Informe de imagenes del
+                <span class="text-blue">ticket #{{ object.id }}</span>
+            </h1>
+        </div>
+
+        <div  class="middle-container">
+            <h1 class="text-center text-white">
+                EJECUCIÓN
+            </h1>
+            <h1 class="text-center text-white">
+                Informe Semanal AREA CENTRO
+            </h1>
+            <h1 class="text-center text-white">
+                Semana X – Del XX al YY de MES
+            </h1>
+        </div>
+        <img class="logo" src="http://subirimagen.me/uploads/20180524021550.png" alt="">
+
+        <img class="botellas " src='http://subirimagen.me/uploads/20180524022346.png'  />
+
+    </div>
+</div>
+
+{% for ticket in object_list %}
+    <div class="lc-block toggled">
+    <div class="container-page "  align="center">
+        <h1 class="text-center texto-ticket text-white">
+            {{ ticket.data }}
+        </h1>
+    </div>
+    <img class="logother" src="http://subirimagen.me/uploads/20180524021550.png" alt="">
+    </div>
+
+    <div class="container-page" align="center" id="page1" >
+        {% for image in ticket.get_images %}
+
+            <div class="col-md-12 text-center ">
+                <div class="row ">
+                    <div class="col-md-12 ">
+                        <img class="image margin-top" src="{{ image.image }}" alt="">
+                    </div>
+                    <div class="col-md-12 ">
+                        <p>status : <strong>{{ image.status }}</strong></p>
+                        <p>created : <strong>{{ image.created }}</strong></p>
+                        <p>ticket : <strong>{{ image.ticket }}</strong></p>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+                </div>
+                <div class="container-page" align="center">
+            {% endif %}
+        <img class="position" src="http://subirimagen.me/uploads/20180524031754.png" alt="">
+        {% endfor %}
+
+        <div class="row">
+
+        </div>
+        </div>
+{% endfor %}
+
+<div class="container-page " id="thank">
+        <div  class="middle-container">
+            <h1 class="text-center  texto-thank text-white">
+                GRACIAS
+            </h1>
+        </div>
+    <img class="logo" src="http://subirimagen.me/uploads/20180524021550.png" alt="">
+    </div>
+</div>
+
+
+</body>
+</html>
